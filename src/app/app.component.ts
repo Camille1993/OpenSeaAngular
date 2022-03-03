@@ -17,19 +17,36 @@ export class AppComponent {
   }
 
   async getAssets() {
-    const assets = await this.openSea.getAssets('');
+    const assets = await this.openSea.getAssets({
+        owner: '0x0806c4efa94a549f1071c312e5c39dc61f4726a5',
+        order_direction: 'desc',
+        offset: 0,
+        limit: 20,
+      });
     console.log(assets);
   }
   async getEvents() {
-    const events = await this.openSea.getEvents('0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656');
+    const events = await this.openSea.getEvents({
+      asset_contract_address: '0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656',
+      only_opensea: 'false',
+      offset: 0,
+      limit: 20,
+    });
     console.log(events);
   }
   async getCollections() {
-    const collections = await this.openSea.getCollections('0x0806c4efa94a549f1071c312e5c39dc61f4726a5');
+    const collections = await this.openSea.getCollections({
+      asset_owner: '0x0806c4efa94a549f1071c312e5c39dc61f4726a5',
+      offset: 0,
+      limit: 300,
+});
     console.log(collections);    
   }
   async getBundles() {
-    const bundles = await this.openSea.getBundles();
+    const bundles = await this.openSea.getBundles({
+      offset: 0,
+      limit: 20,
+    });
     console.log(bundles);    
   }
   async getSingleAsset() {
