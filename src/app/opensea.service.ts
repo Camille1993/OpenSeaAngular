@@ -67,11 +67,11 @@ export class OpenSea {
 
   /**
    * allow to get more information about an contract asset
-   * @param assetContractAddress 
+   * @param address 
    * @returns json object
    */
-  getContract(assetContractAddress: string) {
-    return get(`asset_contract/${assetContractAddress}`);
+  getAssetContract(address: string) {
+    return get(`asset_contract/${address}`);
   }
 
   /**

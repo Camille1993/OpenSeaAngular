@@ -54,7 +54,7 @@ export class AppComponent {
     console.log(asset);
   }
   async getSingleContract() {
-    const contract = await this.openSea.getContract('0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656');
+    const contract = await this.openSea.getAssetContract('0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656');
     console.log(contract);
   }
   async getSingleCollection() {
