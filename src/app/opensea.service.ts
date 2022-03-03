@@ -35,7 +35,6 @@ export class OpenSea {
 
   /**
   * allow to get asset of a specific wallet adress
-  * query params : owner, order_direction, offset, limit
   * @param params
   * @returns json object
   **/  
@@ -57,7 +56,6 @@ export class OpenSea {
   /**
    * allow to get a list of event that occur on the OpenSea tracks.
    * API key require in order to use this endpoint.
-   * query params : asset_contract_address, only_opensea, offset, limit
    * @param params 
    * @returns json object
    */
@@ -76,7 +74,6 @@ export class OpenSea {
 
   /**
    * allow to get the collections of a wallet adress
-   * query params : asset_owner, offset, limit
    * @param params 
    * @returns json object
    */
@@ -104,7 +101,6 @@ export class OpenSea {
 
   /**
    * allow to get bundles (groups of items for sale)
-   * query params : offset, limit
    * @param params 
    * @returns json object
    */
