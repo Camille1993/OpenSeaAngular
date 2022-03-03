@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
 
 const baseUrl = 'https://testnets-api.opensea.io/api/v1';
-function queryParams(params: Record<string, any>) {
+function queryParams(params: Record<string, any> = {}) {
  return Object.entries(params)
  .map(([key, value]) => `${key}=${value}`)
  .join('&');
 }
-function get(url: string) {
-  return fetch(`${baseUrl}/${url}`).then(res => res.json)
+function get(url: string) {   
+  return fetch(`${baseUrl}/${url}`).then(res => res.json())
 }
-function getList(listType: string, params: any) {
-  return fetch(`${baseUrl}/${listType}?${queryParams(params)}`).then(res=> res.json())
+function getList(listType: string, params: Record<string, any> = {}) {
+  const query = queryParams(params);
+  const url = query ? `${baseUrl}/${listType}?${queryParams(params)}` : `${baseUrl}/${listType}`;
+  return fetch(url).then(res=> res.json())
 }
 
 interface ListParam {
@@ -59,7 +61,7 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getEvents(params: EventListParams) {
+  getEvents(params: EventListParams = {}) {
     return getList('events', params);
   }
 
@@ -77,7 +79,7 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getCollections(params: CollectionListParams) {
+  getCollections(params: CollectionListParams = {}) {
     return getList('collections', params);
   }
 
@@ -104,7 +106,7 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getBundles(params: ListParam) {
+  getBundles(params: ListParam = {}) {
     return getList('bundles', params)
   }
 }
