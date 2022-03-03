@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 const baseUrl = 'https://testnets-api.opensea.io/api/v1';
-function queryParams(params: Record<string, string | number>) {
+function queryParams(params: Record<string, any>) {
  return Object.entries(params)
  .map(([key, value]) => `${key}=${value}`)
  .join('&');
@@ -9,6 +9,26 @@ function queryParams(params: Record<string, string | number>) {
 function get(url: string) {
   return fetch(`${baseUrl}/${url}`).then(res => res.json)
 }
+function getList(listType: string, params: any) {
+  return fetch(`${baseUrl}/${listType}?${queryParams(params)}`).then(res=> res.json())
+}
+
+interface ListParam {
+  offset?: number;
+  limit?: number;
+}
+interface AssetListParams extends ListParam {
+  owner?: string;
+  order_direction?: 'asc' | 'desc';
+}
+interface EventListParams extends ListParam {
+  asset_contract_address?: string;
+  only_opensea?: string;
+}
+interface CollectionListParams extends ListParam {
+  asset_owner? : string;
+}
+
 
 @Injectable({providedIn: 'root'})
 export class OpenSea {
@@ -19,8 +39,8 @@ export class OpenSea {
   * @param params
   * @returns json object
   **/  
-  getAssets(params : any) {    
-    return get(`assets?${queryParams(params)}`);   
+  getAssets(params : AssetListParams = {}) {    
+    return getList('assets', params);   
   }
 
   /**
@@ -41,8 +61,8 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getEvents(params: any) {
-    return get(`events?${queryParams(params)}`);
+  getEvents(params: EventListParams) {
+    return getList('events', params);
   }
 
   /**
@@ -60,8 +80,8 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getCollections(params: any) {
-    return get(`collections?${queryParams(params)}`);
+  getCollections(params: CollectionListParams) {
+    return getList('collections', params);
   }
 
   /**
@@ -88,7 +108,7 @@ export class OpenSea {
    * @param params 
    * @returns json object
    */
-  getBundles(params: any) {
-    return get(`bundles?${queryParams(params)}`)
+  getBundles(params: ListParam) {
+    return getList('bundles', params)
   }
 }
