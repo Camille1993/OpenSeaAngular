@@ -22,6 +22,7 @@ export class OpenSea {
   getAssets(params : any) {    
     return get(`assets?${queryParams(params)}`);   
   }
+
   /**
    * allow to get more information on the asset
    * in function of the token_Id and the contract address for the concerned NFT
@@ -29,9 +30,8 @@ export class OpenSea {
    * @param tokenId 
    * @returns 
    */
-  getAsset(assetContractAddress: string, tokenId:number ) {
-    const url = `${baseUrl}/asset/${assetContractAddress}/${tokenId}`;
-    return fetch(url).then(res => res.json());
+  getAsset(assetContractAddress: string, tokenId: number ) {
+    return get(`asset/${assetContractAddress}/${tokenId}`)
   }
 
   /**
@@ -44,14 +44,14 @@ export class OpenSea {
   getEvents(params: any) {
     return get(`events?${queryParams(params)}`);
   }
+
   /**
    * allow to get more information about an contract asset
    * @param assetContractAddress 
    * @returns json object
    */
   getContract(assetContractAddress: string) {
-    const url = `${baseUrl}/asset_contract/${assetContractAddress}`;
-    return fetch(url).then(res => res.json());
+    return get(`asset_contract/${assetContractAddress}`);
   }
 
   /**
@@ -63,23 +63,23 @@ export class OpenSea {
   getCollections(params: any) {
     return get(`collections?${queryParams(params)}`);
   }
+
   /**
-   * allow to retrieve one collection in function of the slug
+   * allow to retrieve one collection in function of the slug (collection name)
    * @param slug 
    * @returns json object 
    */
   getCollection(slug: string) {
-    const url = `${baseUrl}/collection/${slug}`;
-    return fetch(url).then(res => res.json());
+    return get(`collection/${slug}`)
   }
+
   /**
    * allow to retrieve the stats of a collection base on the slug
    * @param slug 
    * @returns json object
    */
   getCollectionStat(slug: string) {
-    const url = `${baseUrl}/collection/${slug}/stats`;
-    return fetch(url).then(res => res.json());
+    return get(`collection/${slug}/stats`);
   }
 
   /**
