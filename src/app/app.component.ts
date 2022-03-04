@@ -19,7 +19,7 @@ export class AppComponent {
   async getAssets() {
     const assets = await this.openSea.getAssets({
         owner: '0x0806c4efa94a549f1071c312e5c39dc61f4726a5',
-        order_direction: 'desc',
+        orderDirection: 'desc',
         offset: 0,
         limit: 20,
       });
@@ -28,8 +28,8 @@ export class AppComponent {
   
   async getEvents() {
     const events = await this.openSea.getEvents({
-      asset_contract_address: '0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656',
-      only_opensea: 'false',
+      assetContractAddress: '0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656',
+      onlyOpensea: 'false',
       offset: 0,
       limit: 20,
     });
@@ -38,7 +38,7 @@ export class AppComponent {
 
   async getCollections() {
     const collections = await this.openSea.getCollections({
-      asset_owner: '0x0806c4efa94a549f1071c312e5c39dc61f4726a5',
+      assetOwner: '0x0806c4efa94a549f1071c312e5c39dc61f4726a5',
       offset: 0,
       limit: 300,
 });

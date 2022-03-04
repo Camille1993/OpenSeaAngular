@@ -3,15 +3,22 @@ import { Injectable } from "@angular/core";
 const baseUrl = 'https://testnets-api.opensea.io/api/v1';
 function queryParams(params: Record<string, any> = {}) {
  return Object.entries(params)
- .map(([key, value]) => `${key}=${value}`)
+ .map(([key, value]) => `${camelToSnakeCase(key)}=${value}`)
  .join('&');
 }
+
+// regex to change camelCase to snake_case
+function camelToSnakeCase(param?: any) {
+  return param.split(/(?=[A-Z])/).join('_').toLowerCase();
+}
+
 function get(url: string) {   
   return fetch(`${baseUrl}/${url}`).then(res => res.json())
 }
+
 function getList(listType: string, params: Record<string, any> = {}) {
   const query = queryParams(params);
-  const url = query ? `${baseUrl}/${listType}?${queryParams(params)}` : `${baseUrl}/${listType}`;
+  const url = query ? `${baseUrl}/${listType}?${query}` : `${baseUrl}/${listType}`;
   return fetch(url).then(res=> res.json())
 }
 
@@ -21,14 +28,14 @@ interface ListParam {
 }
 interface AssetListParams extends ListParam {
   owner?: string;
-  order_direction?: 'asc' | 'desc';
+  orderDirection?: 'asc' | 'desc';
 }
 interface EventListParams extends ListParam {
-  asset_contract_address?: string;
-  only_opensea?: string;
+  assetContractAddress?: string;
+  onlyOpensea?: string;
 }
 interface CollectionListParams extends ListParam {
-  asset_owner? : string;
+  assetOwner? : string;
 }
 
 
